@@ -1,9 +1,3 @@
-//pseudocode
-//enter initials form
-//saves name to localstorage
-//display name and score
-//getdata from local storage
-
 var scoresList = JSON.parse(localStorage.getItem("allScores"));
 var scoresTable = document.querySelector('#highscores');
 var clearBtn = document.querySelector('#clear');

@@ -1,36 +1,3 @@
-//Pseudocode
-
-//setinterval function with a timer counting from 60 to 0
-// if timer === 0
-// timer saved to localstorage
-// highscores.html
-
-// render function 
-// for loop
-// if i < 10
-// append variable to html
-// if i > 10
-// timer saved to local storage
-
-// each question it's own div element with a number id
-// div -> h2 + ol -> li x 4
-
-// list elements have value of 'right' or 'wrong'
-
-// event listener on ol
-
-//if event target == right:
-// - correct sfx
-// - 'Correct!' appears onscreen for 1 second
-// render function
-
-//else 
-// - incorrect sfx
-// - 'Wrong!' appears onscreen for 1 second
-// timer decreased by 10
-// render function
-
-//
 
 var time = document.querySelector('#time');
 var choices = document.querySelector('#choices');
@@ -73,51 +40,7 @@ startBtn.addEventListener('click', function (event) {
     render();
 })
 
-//Shows user the current question
-function render() {
-    if (i===10) {
-        questions[i-1].setAttribute('class', 'hide');
-        endScreen.removeAttribute('class');
-        finalScore.textContent= timeLeft;
-        time.setAttribute('class', 'hide');   
-    } else if (i>0) {
-    questions[i-1].setAttribute('class', 'hide');
-    questions[i].removeAttribute('class', 'hide');
-    guess();
-    } else {
-    questions[i].removeAttribute('class', 'hide');
-    guess();
-    }
-};
-
-// When User clicks on quiz answer
-function guess () {
-questions[i].addEventListener('click', function (event) {
-    var answer = event.target.getAttribute('id');
-        if (answer === 'right') {
-            feedback.textContent = 'Correct!';
-            feedback.removeAttribute('class', 'hide');
-            i++;
-            setTimeout(function() {
-                feedback.setAttribute('class', 'hide');
-            }, 1000);
-    
-        } else if (answer === 'wrong') {
-            feedback.textContent = 'Wrong!';
-            timeLeft = (timeLeft-10);
-            feedback.removeAttribute('class', 'hide');
-            i++;
-            setTimeout(function() {
-                feedback.setAttribute('class', 'hide');
-            }, 1000);
-        } else {
-            return
-        }
-        render();
-    });
-}
-
-//Submit Validation
+//Saving Scores
 submitBtn.addEventListener('click', function(event){
     if (initials.value === "") {
         submitMsg.setAttribute('style', 'color:red')
