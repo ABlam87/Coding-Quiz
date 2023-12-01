@@ -47,7 +47,6 @@ questions = Array.from(document.querySelectorAll('#questions'));
 
 var timeLeft = 60;
 time.textContent=timeLeft;
-var score = 0;
 var i = 0;
 
 //Countdown
@@ -96,7 +95,6 @@ function guess () {
 questions[i].addEventListener('click', function (event) {
     var answer = event.target.getAttribute('id');
         if (answer === 'right') {
-            score++;
             feedback.textContent = 'Correct!';
             feedback.removeAttribute('class', 'hide');
             i++;
@@ -112,6 +110,8 @@ questions[i].addEventListener('click', function (event) {
             setTimeout(function() {
                 feedback.setAttribute('class', 'hide');
             }, 1000);
+        } else {
+            return
         }
         render();
     });
@@ -126,7 +126,15 @@ submitBtn.addEventListener('click', function(event){
         submitMsg.setAttribute('style', 'color:red')
         submitMsg.textContent = 'Too many initials. Max length is 3!';
     } else {
-        submitMsg.setAttribute('style', 'color:green')
-        submitMsg.textContent = ' Thank you! Highscore submitted!';
+        submitMsg.setAttribute('style', 'color:green');
+        submitMsg.textContent = "Thank you! Highscore submitted!";
+        var InitialScore = {
+        "Initials": initials.value,
+        "Score": finalScore.textContent
+    };
+    console.log(InitialScore)
+    var highscores = JSON.parse(localStorage.getItem("allScores")) || [];
+    highscores.push(InitialScore);
+    localStorage.setItem("allScores", JSON.stringify(highscores));
     }
 })

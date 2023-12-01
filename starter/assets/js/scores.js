@@ -4,6 +4,6 @@
 //display name and score
 //getdata from local storage
 
-score = 0;
+
 
 
