@@ -39,6 +39,9 @@ var startScreen = document.querySelector('#start-screen')
 var endScreen = document.querySelector('#end-screen');
 var finalScore = document.querySelector('#final-score')
 var feedback = document.querySelector('#feedback');
+var initials = document.querySelector('#initials');
+var submitBtn = document.querySelector('#submit');
+var submitMsg = document.querySelector('#submit-msg');
 
 questions = Array.from(document.querySelectorAll('#questions'));
 
@@ -47,8 +50,8 @@ time.textContent=timeLeft;
 var score = 0;
 var i = 0;
 
+//Countdown
 function countdown() {
-// countdown function
 setInterval(function() {
     if (timeLeft < 0) {
         clearInterval();
@@ -71,7 +74,7 @@ startBtn.addEventListener('click', function (event) {
     render();
 })
 
-//RenderFunction
+//Shows user the current question
 function render() {
     if (i===10) {
         questions[i-1].setAttribute('class', 'hide');
@@ -88,6 +91,7 @@ function render() {
     }
 };
 
+// When User clicks on quiz answer
 function guess () {
 questions[i].addEventListener('click', function (event) {
     var answer = event.target.getAttribute('id');
@@ -113,3 +117,16 @@ questions[i].addEventListener('click', function (event) {
     });
 }
 
+//Submit Validation
+submitBtn.addEventListener('click', function(event){
+    if (initials.value === "") {
+        submitMsg.setAttribute('style', 'color:red')
+        submitMsg.textContent = 'Please input your initials!';
+    } else if (initials.value.length > 3) {
+        submitMsg.setAttribute('style', 'color:red')
+        submitMsg.textContent = 'Too many initials. Max length is 3!';
+    } else {
+        submitMsg.setAttribute('style', 'color:green')
+        submitMsg.textContent = ' Thank you! Highscore submitted!';
+    }
+})
