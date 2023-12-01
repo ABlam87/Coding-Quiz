@@ -38,11 +38,15 @@ var startScreen = document.querySelector('#start-screen')
 var endScreen = document.querySelector('#end-screen');
 var finalScore = document.querySelector('#final-score')
 
+questions = Array.from(document.querySelectorAll('#questions'));
+
 var timeLeft = 60;
 time.textContent=timeLeft;
+var score = 0;
 
 function countdown() {
 
+// countdown function
 setInterval(function() {
     if (timeLeft <= 0) {
         clearInterval();
@@ -55,10 +59,20 @@ setInterval(function() {
 }, 1000);
 }
 
+//StartButton
 startBtn.addEventListener('click', function (event) {
     event.preventDefault();
     startScreen.setAttribute('class', 'hide');
-    render();
     countdown();
+    render();
 })
+
+//RenderFunction
+function render() {
+    for (let i = 0; i < questions.length; i++) {
+    questions[0].removeAttribute('class');    
+    }
+}
+
+//AnswerEvent
 
