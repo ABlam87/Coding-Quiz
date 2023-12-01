@@ -32,16 +32,22 @@
 
 //
 
-var time = document.querySelector('#time')
-
-function countdown() {
+var time = document.querySelector('#time');
+var startBtn = document.querySelector('#start');
+var startScreen = document.querySelector('#start-screen')
+var endScreen = document.querySelector('#end-screen');
+var finalScore = document.querySelector('#final-score')
 
 var timeLeft = 60;
+time.textContent=timeLeft;
+
+function countdown() {
 
 setInterval(function() {
     if (timeLeft <= 0) {
         clearInterval();
-        displayScore();
+        endScreen.removeAttribute('class');
+        finalScore.textContent=timeLeft;
     } else {
         time.textContent = timeLeft;
         timeLeft--;
@@ -49,4 +55,10 @@ setInterval(function() {
 }, 1000);
 }
 
-countdown();
+startBtn.addEventListener('click', function (event) {
+    event.preventDefault();
+    startScreen.setAttribute('class', 'hide');
+    render();
+    countdown();
+})
+
