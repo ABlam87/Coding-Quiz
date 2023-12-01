@@ -31,3 +31,22 @@
 // render function
 
 //
+
+var time = document.querySelector('#time')
+
+function countdown() {
+
+var timeLeft = 60;
+
+setInterval(function() {
+    if (timeLeft <= 0) {
+        clearInterval();
+        displayScore();
+    } else {
+        time.textContent = timeLeft;
+        timeLeft--;
+    }
+}, 1000);
+}
+
+countdown();
