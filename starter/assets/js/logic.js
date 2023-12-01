@@ -132,7 +132,7 @@ submitBtn.addEventListener('click', function(event){
         "Initials": initials.value,
         "Score": finalScore.textContent
     };
-    console.log(InitialScore)
+    
     var highscores = JSON.parse(localStorage.getItem("allScores")) || [];
     highscores.push(InitialScore);
     localStorage.setItem("allScores", JSON.stringify(highscores));
