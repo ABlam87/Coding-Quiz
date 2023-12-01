@@ -33,16 +33,19 @@
 //
 
 var time = document.querySelector('#time');
+var choices = document.querySelector('#choices');
 var startBtn = document.querySelector('#start');
 var startScreen = document.querySelector('#start-screen')
 var endScreen = document.querySelector('#end-screen');
 var finalScore = document.querySelector('#final-score')
+var feedback = document.querySelector('#feedback');
 
 questions = Array.from(document.querySelectorAll('#questions'));
 
 var timeLeft = 60;
 time.textContent=timeLeft;
 var score = 0;
+var i = 0;
 
 function countdown() {
 
@@ -50,8 +53,10 @@ function countdown() {
 setInterval(function() {
     if (timeLeft <= 0) {
         clearInterval();
+        questions[i].setAttribute('class', 'hide');
         endScreen.removeAttribute('class');
-        finalScore.textContent=timeLeft;
+        timeLeft = 0;
+        finalScore.textContent= timeLeft;
     } else {
         time.textContent = timeLeft;
         timeLeft--;
@@ -69,10 +74,33 @@ startBtn.addEventListener('click', function (event) {
 
 //RenderFunction
 function render() {
-    for (let i = 0; i < questions.length; i++) {
-    questions[0].removeAttribute('class');    
+    if (i>0) {
+    questions[i-1].setAttribute('class', 'hide');
+    };
+    questions[i].removeAttribute('class');
+    i++;    
     }
-}
 
 //AnswerEvent
-
+questions[i].addEventListener('click', function (event) {
+    if (i>9) {
+    questions[i].setAttribute('class', 'hide');
+    endScreen.removeAttribute('class');    
+    } else if (event.target.answer === 'right') {
+        score++;
+        feedback.textContent = 'Correct!';
+        feedback.removeAttribute('class', 'hide');
+        setTimeout(function() {
+            feedback.setAttribute('class', 'hide');
+        }, 1000)
+        render();
+    } else {
+        feedback.textContent = 'Wrong!';
+        timeLeft = (timeLeft-10);
+        feedback.removeAttribute('class', 'hide');
+        render();
+        setTimeout(function() {
+            feedback.setAttribute('class', 'hide');
+        }, 1000);
+    }
+})
