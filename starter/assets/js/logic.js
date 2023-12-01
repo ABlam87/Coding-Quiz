@@ -48,10 +48,9 @@ var score = 0;
 var i = 0;
 
 function countdown() {
-
 // countdown function
 setInterval(function() {
-    if (timeLeft <= 0) {
+    if (timeLeft < 0) {
         clearInterval();
         questions[i].setAttribute('class', 'hide');
         endScreen.removeAttribute('class');
@@ -74,33 +73,43 @@ startBtn.addEventListener('click', function (event) {
 
 //RenderFunction
 function render() {
-    if (i>0) {
+    if (i===10) {
+        questions[i-1].setAttribute('class', 'hide');
+        endScreen.removeAttribute('class');
+        finalScore.textContent= timeLeft;
+        time.setAttribute('class', 'hide');   
+    } else if (i>0) {
     questions[i-1].setAttribute('class', 'hide');
-    };
-    questions[i].removeAttribute('class');
-    i++;    
-    }
-
-//AnswerEvent
-questions[i].addEventListener('click', function (event) {
-    if (i>9) {
-    questions[i].setAttribute('class', 'hide');
-    endScreen.removeAttribute('class');    
-    } else if (event.target.answer === 'right') {
-        score++;
-        feedback.textContent = 'Correct!';
-        feedback.removeAttribute('class', 'hide');
-        setTimeout(function() {
-            feedback.setAttribute('class', 'hide');
-        }, 1000)
-        render();
+    questions[i].removeAttribute('class', 'hide');
+    guess();
     } else {
-        feedback.textContent = 'Wrong!';
-        timeLeft = (timeLeft-10);
-        feedback.removeAttribute('class', 'hide');
-        render();
-        setTimeout(function() {
-            feedback.setAttribute('class', 'hide');
-        }, 1000);
+    questions[i].removeAttribute('class', 'hide');
+    guess();
     }
-})
+};
+
+function guess () {
+questions[i].addEventListener('click', function (event) {
+    var answer = event.target.getAttribute('id');
+        if (answer === 'right') {
+            score++;
+            feedback.textContent = 'Correct!';
+            feedback.removeAttribute('class', 'hide');
+            i++;
+            setTimeout(function() {
+                feedback.setAttribute('class', 'hide');
+            }, 1000);
+    
+        } else if (answer === 'wrong') {
+            feedback.textContent = 'Wrong!';
+            timeLeft = (timeLeft-10);
+            feedback.removeAttribute('class', 'hide');
+            i++;
+            setTimeout(function() {
+                feedback.setAttribute('class', 'hide');
+            }, 1000);
+        }
+        render();
+    });
+}
+
