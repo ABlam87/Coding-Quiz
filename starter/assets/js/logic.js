@@ -18,10 +18,19 @@ var i = 0;
 
 //Countdown
 function countdown() {
-    timer = setInterval(function(){
-        time.textContent = timeLeft;
-        timeLeft--;
-        }, 1000);}
+    setInterval(function() {
+        if (timeLeft < 0) {
+            clearInterval();
+            questions[i].setAttribute('class', 'hide');
+            endScreen.removeAttribute('class');
+            timeLeft = 0;
+            finalScore.textContent= timeLeft;
+        } else {
+            time.textContent = timeLeft;
+            timeLeft--;
+        }
+    }, 1000);
+    }
 
 //StartButton
 startBtn.addEventListener('click', function (event) {
